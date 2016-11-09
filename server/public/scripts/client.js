@@ -7,7 +7,8 @@ $(document).ready(function() {
 
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
-    });
+
+});
 
     console.log(newSong);
 
@@ -48,10 +49,17 @@ $(document).ready(function() {
       var $el = $("#songContainer").children().last();
       $el.append('<h3>' + songs[i].title + '</h3>');
       $el.append('<p>By: ' + songs[i].artist + '</p>');
+      $el.append('<p>Date: ' + songs[i].dateAdded + '</p>');
     }
-
   }
-
-
-
 });
+
+
+      // $('.song').each(function() {
+      // var value = $(this).value;
+      // if (newSong[value])
+      // $(this).remove();
+      // else
+      // newSong[value] = true;
+      //
+      // });

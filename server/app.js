@@ -13,7 +13,7 @@ app.set('port', process.env.PORT || 3000);
 var songs = [
   {
     artist: "Bruce Springstein",
-    title: "Born in the U.S.A."
+    title: "Born in the U.S.A.",
   }
 ];
 
@@ -22,10 +22,32 @@ app.post('/songs', function(req, res) {
   // req.body is supplied by bodyParser above
   console.log("REQ body: ", req.body);
   var newSong = req.body;
-  songs.push(newSong);
+  var isDuplicate = false;
+  var d = new Date();
+  var month = d.getMonth()+1;
+  var day = d.getDate();
+  var output = d.getFullYear() + '/' +
+    (month<10 ? '0' : '') + month + '/' +
+    (day<10 ? '0' : '') + day;
 
+
+
+for (var i = 0; i < songs.length; i++) {
+  if(newSong.title == songs[i].title){
+    isDuplicate = true;
+  }
+}
+  if(isDuplicate == true){
+    // alert("You already picked this song, dummy!");
+    res.sendStatus(400);
+      } else {
+    newSong.dateAdded = output;
+    songs.push(newSong);
+    res.sendStatus(201);
+
+  }
   // created new resource
-  res.sendStatus(201);
+
 });
 
 app.get('/songs', function(req, res) {
